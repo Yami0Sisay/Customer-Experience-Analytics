@@ -1,3 +1,7 @@
 pandas
 numpy
 matplotlib
+google_play_scraper
+python-dotenv
+tqdm
+seaborn
