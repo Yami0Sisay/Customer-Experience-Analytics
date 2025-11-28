@@ -1,2 +1,11 @@
 .venv
 data
+.env
+#Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter temporary checkpoints
+.ipynb_checkpoints/
