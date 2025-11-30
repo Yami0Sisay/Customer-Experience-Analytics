@@ -1,3 +1,4 @@
+#Task-1
 pandas
 numpy
 matplotlib
@@ -5,3 +6,10 @@ google_play_scraper
 python-dotenv
 tqdm
 seaborn
+
+#Task-2
+transformers
+torch
+scikit_learn
+nltk
+textblob
