@@ -1,6 +1,6 @@
 # Customer-Experience-Analytics
 
-**Week 2 – Task 1: Data Collection and Preprocessing**  
+**Week 2 **  
 This repository analyzes customer sentiment and user experience for three major Ethiopian mobile banking apps:
 - **Commercial Bank of Ethiopia (CBE)**
 - **Bank of Abyssinia (BOA)**
