@@ -118,6 +118,108 @@ or run it inside the notebook
 python scripts/preprocessing.py
 ```
 
+## Task 2 Overview
+
+Task 2 focuses on quantifying user sentiment and identifying recurring themes in reviews to uncover satisfaction drivers and pain points.
+
+### 1. Sentiment Analysis
+
+The sentiment pipeline uses three models to ensure high coverage and reliability:
+Main Model:
+- distilbert-base-uncased-finetuned-sst-2-english
+- Generates positive/negative probabilities
+- Computes a final sentiment score
+- Assigns a sentiment label
+Additional Models (for comparison):
+- VADER
+- TextBlob
+The pipeline outputs:
+- Sentiment score (BERT, VADER, TextBlob)
+- Sentiment label
+Aggregated metrics:
+- Mean sentiment per bank
+- Mean sentiment per rating
+Output file:
+``` bash
+data/processed/sentiment_results.csv
+```
+(included inside the thematic_results file)
+
+### 2. Thematic Analysis
+
+The goal is to identify recurring topics that reveal user frustrations and strengths.
+
+Keyword Extraction:
+The following were computed:
+- Cleaned text
+- Unigram frequencies
+- Bigram frequencies
+- TF-IDF (global and per bank)
+- spaCy noun chunks
+- Optional topic modeling (LDA)
+
+This surfaces patterns such as:
+“doesn’t work”, “mobile banking”, “user friendly”, “slow”, “login problem”.
+
+Theme Assignment (Rule-Based):
+Each review is matched to one or more of the following themes:
+- Account Access & Login Issues
+- App Performance & Stability
+- User Interface & Experience
+- Transaction & Payment Problems
+- Features & Functionality
+- Positive Experience
+- Uncategorized (fallback)
+
+Output file:
+``` bash
+data/processed/thematic_results.csv
+```
+This file contains sentiment labels + score + themes for every review.
+
+### 3. EDA Notebooks
+
+Two notebooks provide supporting analysis:
+`sentiment_EDA.ipynb`:
+- Sentiment distribution per bank
+- Sentiment vs. star rating
+- Compare BERT, VADER, TextBlob
+- Examples of extreme positive/negative reviews
+
+`thematic_EDA.ipynb`:
+- TF-IDF top terms
+- Bigram counts
+- Word clouds
+- LDA topics
+- Theme examples with review text
+
+### How the Code Works
+`scripts/sentiment_analysis.py`
+Processes reviews and generates:
+- BERT sentiment probabilities
+- TextBlob polarity
+- VADER compound score
+- Unified sentiment score and label
+- Saves enriched dataset
+Run with:
+``` bash
+python scripts/sentiment_analysis.py
+```
+`scripts/thematic_analysis.py`
+Handles thematic analysis:
+- Clean text
+- Extract keywords + bigrams
+- Compute TF-IDF
+- Run optional LDA topic modeling
+- Assign themes using rule-based logic
+- Merge sentiment + theme results
+- Save final CSV
+
+Run with:
+``` bash
+python scripts/thematic_analysis.py
+```
+
 
 ### 📁 Project Structure  
 
@@ -135,18 +237,23 @@ Customer-Experience-Analytics/
 │ │ ├── reviews_raw.csv
 │ │ └── app_info.csv
 │ └── processed/
-│ └── reviews_processed.csv
+│   ├── reviews_processed.csv
+│   └── thematic_results.csv
 │
 ├── scripts/
 │ ├── scraper.py
 │ ├── preprocessing.py
 │ ├── __init__.py
+│ ├── sentiment_analysis.py      
+│ ├── thematic_analysis.py 
 │ └── README.md
 │
 ├── notebooks/
 │   ├── __init__.py
 │   ├── README.md
-│   └── preprocessing_EDA.ipynb
+│   ├── preprocessing_EDA.ipynb
+│   ├── sentiment_EDA.ipynb    
+│   └── thematic_EDA.ipynb
 │
 ├── .env
 │
@@ -159,4 +266,3 @@ Customer-Experience-Analytics/
 ├── README.md
 └── requirements.txt
 ```
-
