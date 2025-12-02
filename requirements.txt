@@ -13,3 +13,6 @@ torch
 scikit_learn
 nltk
 textblob
+
+#Task-3
+psycopg2-binary
